@@ -1,14 +1,14 @@
 ---
 title: "Locus Not Found (404)"
 subtitle: "Transcription Error: Sequence Mismatch"
-image: static/404_bio.png
+image: static/404_bio.jpg
 comments: false
 ---
 
 ::: {.column-screen .text-center style="padding: 60px 20px; background: linear-gradient(135deg, rgba(44, 62, 80, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);"}
 
 <div class="error-container">
-  <img src="static/404_bio.png" class="img-fluid rounded-4 shadow-lg mb-5" style="max-width: 600px; border: 1px solid rgba(255,255,255,0.1);">
+  <img src="static/404_bio.jpg" class="img-fluid rounded-4 shadow-lg mb-5" style="max-width: 600px; border: 1px solid rgba(255,255,255,0.1);">
   
   <h1 class="display-1 fw-bold mb-3" style="background: linear-gradient(45deg, #2c3e50, #3498db); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">404 Error</h1>
   
