@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Projects"
 listing:
   - id: portfolio
     contents: "portfolio/*.qmd"

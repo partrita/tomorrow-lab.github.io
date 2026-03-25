@@ -142,3 +142,9 @@ pre {
 .input-group-text {
   color: $body-bg !important;
 }
+
+// Pagination ellipsis visibility fix
+.pagination .page-item.disabled .page-link {
+  color: $pagination-disabled-color !important;
+  opacity: 1 !important;
+}

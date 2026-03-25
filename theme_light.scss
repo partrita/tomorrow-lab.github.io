@@ -127,4 +127,26 @@ $pagination-disabled-border-color: $nord4;  // 비활성화 상태 테두리 색
 div.quarto-post .listing-categories .listing-category {
   background-color: var(--bs-gray-200);
   color: var(--bs-gray-700) !important;
-}// code filename coloringpre {  font-size: 0.8em;  color: $body-color !important;}.code-with-filename .code-with-filename-file {   background-color: $code-block-bg !important;   border: none !important;}.input-group-text {  color: $body-color !important;}
+}
+
+// code filename coloring
+pre {
+  font-size: 0.8em;
+  color: $body-color !important;
+}
+
+.code-with-filename .code-with-filename-file {
+  background-color: $code-block-bg !important;
+  border: none !important;
+}
+
+.input-group-text {
+  color: $body-color !important;
+}
+
+// Pagination ellipsis visibility fix
+.pagination .page-item.disabled .page-link {
+  color: $pagination-disabled-color !important;
+  opacity: 1 !important;
+}
+
