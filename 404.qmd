@@ -1,5 +1,5 @@
 ---
-title: "Locus Not Found (404)"
+title: "Not Found"
 subtitle: "Transcription Error: Sequence Mismatch"
 image: static/404_bio.jpg
 comments: false
@@ -15,19 +15,6 @@ comments: false
   <p class="lead fs-3 mb-4">
     Our gene sequencer couldn't locate the requested information.<br>
     It seems like a <strong>transcription error</strong> or a <strong>deleted locus</strong> has occurred.
-  </p>
-
-  <div class="d-flex justify-content-center gap-3 mt-5">
-    <a href="index.qmd" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
-      <i class="bi bi-house-door me-2"></i>Return to Base
-    </a>
-    <a href="projects.qmd" class="btn btn-outline-secondary btn-lg px-5 rounded-pill shadow-sm">
-      <i class="bi bi-search me-2"></i>Explore Projects
-    </a>
-  </div>
-  
-  <p class="text-muted mt-5 font-monospace" style="font-size: 0.9rem;">
-    [SYSTEM MESSAGE] ERR_SEQUENCE_NOT_FOUND: DNA_BASE_MISMATCH_AT_ROOT
   </p>
 </div>
 
