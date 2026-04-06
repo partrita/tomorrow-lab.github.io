@@ -1,0 +1,4 @@
+## 2025-02-14 - Replace eval() with safer string parsing in educational code examples
+**Vulnerability:** The use of `eval()` to execute arbitrary code within a string when solving a basic arithmetic string parsing problem (e.g. evaluating `"3 + 4 = 7"`).
+**Learning:** Even in educational or coding test sample solutions, using `eval()` to parse user-provided mathematical expressions can inadvertently teach dangerous security practices to readers and expose applications to remote code execution (RCE) if the code pattern is copied into a real-world application.
+**Prevention:** Avoid `eval()`, `exec()`, or similar functions when parsing user input. Instead, use standard string manipulation techniques (e.g. `split()`), safe libraries, or `ast.literal_eval` (if strictly parsing literals) to process input securely without evaluating arbitrary code.
