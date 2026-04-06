@@ -2498,8 +2498,27 @@ def solution(quiz: list[str]) -> list[str]:
         left = left.strip()
         right = right.strip()
 
-        if eval(left) == int(right):
-            result.append("O")
+        parts = left.split()
+        if len(parts) == 3:
+            num1 = int(parts[0])
+            op = parts[1]
+            num2 = int(parts[2])
+
+            if op == '+':
+                calc_result = num1 + num2
+            elif op == '-':
+                calc_result = num1 - num2
+            elif op == '*':
+                calc_result = num1 * num2
+            elif op == '/':
+                calc_result = num1 / num2
+            else:
+                calc_result = None
+
+            if calc_result == int(right):
+                result.append("O")
+            else:
+                result.append("X")
         else:
             result.append("X")
 
