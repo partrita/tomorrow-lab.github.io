@@ -1,0 +1,4 @@
+## 2024-11-22 - [Remove Dangerous eval() from Code Examples]
+**Vulnerability:** The codebase contained an example solution in `posts/qmd/learn_coding_basic.qmd` using Python's `eval()` to parse math equations. This allowed arbitrary code execution and taught poor security practices to readers of the blog.
+**Learning:** Even in educational/tutorial contexts, unsafe functions like `eval()` should never be used, as users copy-paste examples into production code without understanding the risks. Using language features intended for metaprogramming or dynamic evaluation for simple tasks like string parsing introduces severe vulnerabilities.
+**Prevention:** Always use safe parsing mechanisms or built-in secure alternatives to evaluate mathematical expressions or parse strings. Avoid `eval()`, `exec()`, or similar functions when untrusted input might be processed.
