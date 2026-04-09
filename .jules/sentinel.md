@@ -2,3 +2,8 @@
 **Vulnerability:** The codebase contained an example solution in `posts/qmd/learn_coding_basic.qmd` using Python's `eval()` to parse math equations. This allowed arbitrary code execution and taught poor security practices to readers of the blog.
 **Learning:** Even in educational/tutorial contexts, unsafe functions like `eval()` should never be used, as users copy-paste examples into production code without understanding the risks. Using language features intended for metaprogramming or dynamic evaluation for simple tasks like string parsing introduces severe vulnerabilities.
 **Prevention:** Always use safe parsing mechanisms or built-in secure alternatives to evaluate mathematical expressions or parse strings. Avoid `eval()`, `exec()`, or similar functions when untrusted input might be processed.
+
+## 2024-11-23 - [Remove Hardcoded Secrets in Tutorials]
+**Vulnerability:** A hardcoded Hugging Face API token (`hf_cTKyTsXtqSHWyXPLAuxSIGECiIctuNsBona`) was exposed in `posts/qmd/learn_pythonCoding.qmd`. Although it was inside a tutorial Markdown file, any secret checked into version control is a critical risk because automated scrapers and malicious actors can harvest it.
+**Learning:** Hardcoded secrets can easily slip into documentation, tutorials, and examples. Developers often copy-paste functional code into guides without sanitizing credentials. These pose the exact same risk as secrets hardcoded in source files.
+**Prevention:** Regularly scan not just source code but also `.md`, `.qmd`, `.ipynb`, and other documentation formats for credential patterns (e.g., `hf_...`, `sk_...`). Always use explicit placeholders like `<YOUR_TOKEN_HERE>` or `hf_your_token_here_xxxxxxxxx` in tutorials instead of real or realistic-looking tokens.
