@@ -2498,7 +2498,23 @@ def solution(quiz: list[str]) -> list[str]:
         left = left.strip()
         right = right.strip()
 
-        if eval(left) == int(right):
+        # Parse left expression manually to avoid eval() vulnerability
+        parts = left.split()
+        if len(parts) == 3:
+            num1 = int(parts[0])
+            operator = parts[1]
+            num2 = int(parts[2])
+
+            if operator == '+':
+                left_result = num1 + num2
+            elif operator == '-':
+                left_result = num1 - num2
+            else:
+                left_result = None # Invalid operator
+        else:
+            left_result = None # Invalid format
+
+        if left_result == int(right):
             result.append("O")
         else:
             result.append("X")
