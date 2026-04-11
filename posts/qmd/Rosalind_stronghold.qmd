@@ -8459,19 +8459,34 @@ def calculate_child_probabilities(parent1, parent2):
     
     return child_prob
 
+import ast
+
 # Known genotype probabilities for the leaves (ancestral individuals)
-AA = {"AA": 1.0, "Aa": 0.0, "aa": 0.0}
-Aa = {"AA": 0.0, "Aa": 1.0, "aa": 0.0}
-aa = {"AA": 0.0, "Aa": 0.0, "aa": 1.0}
+leaf_probs = {
+    "AA": {"AA": 1.0, "Aa": 0.0, "aa": 0.0},
+    "Aa": {"AA": 0.0, "Aa": 1.0, "aa": 0.0},
+    "aa": {"AA": 0.0, "Aa": 0.0, "aa": 1.0}
+}
 
 # Pedigree input in Newick format
 pedigree = "((((Aa,aa),(Aa,Aa)),((aa,aa),(aa,AA))),Aa);"
 
-# Modify the Newick string to turn it into a Python expression using the `calculate_child_probabilities` function
-pedigree_expression = pedigree.replace(";", "").replace("(", "calculate_child_probabilities(")
+# Transform the Newick string into a safe list-based string representation
+safe_str = pedigree.replace(";", "").replace("(", "[").replace(")", "]")
+safe_str = safe_str.replace("AA", "'AA'").replace("Aa", "'Aa'").replace("aa", "'aa'")
 
-# Evaluate the expression to calculate the probabilities for the root individual
-root_probabilities = eval(pedigree_expression)
+# Safely parse the string into nested Python lists
+pedigree_tree = ast.literal_eval(safe_str)
+
+def evaluate_pedigree(node):
+    if isinstance(node, str):
+        return leaf_probs[node]
+    left = evaluate_pedigree(node[0])
+    right = evaluate_pedigree(node[1])
+    return calculate_child_probabilities(left, right)
+
+# Evaluate the tree to calculate the probabilities for the root individual
+root_probabilities = evaluate_pedigree(pedigree_tree)
 
 # Print the final probabilities for the root individual
 print(f"{root_probabilities['AA']:f} {root_probabilities['Aa']:f} {root_probabilities['aa']:f}")
@@ -8493,7 +8508,7 @@ print(f"{root_probabilities['AA']:f} {root_probabilities['Aa']:f} {root_probabil
      - `aa`: 100% chance of being `aa`
 
 4. **Pedigree Parsing**:
-   - The input pedigree is provided in Newick format. This format is transformed into a Python expression that can be evaluated using `eval`. The key part of this transformation is replacing the `(` characters with calls to the `calculate_child_probabilities` function. This allows the pedigree to be evaluated as a nested set of function calls, starting from the leaves and working up to the root.
+   - The input pedigree is provided in Newick format. This format is securely parsed by transforming it into a string representation of nested Python lists (replacing parentheses with brackets and quoting genotypes). It is then safely parsed using `ast.literal_eval`. A recursive function `evaluate_pedigree` evaluates the resulting tree structure, starting from the leaves and working up to the root using `calculate_child_probabilities`.
 
 5. **Result**:
    - The program evaluates the pedigree, calculating the probabilities of the root individual being `AA`, `Aa`, or `aa`. These probabilities are then printed to three decimal places.

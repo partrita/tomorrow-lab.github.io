@@ -7,3 +7,8 @@
 **Vulnerability:** A hardcoded Hugging Face API token (`hf_cTKyTsXtqSHWyXPLAuxSIGECiIctuNsBona`) was exposed in `posts/qmd/learn_pythonCoding.qmd`. Although it was inside a tutorial Markdown file, any secret checked into version control is a critical risk because automated scrapers and malicious actors can harvest it.
 **Learning:** Hardcoded secrets can easily slip into documentation, tutorials, and examples. Developers often copy-paste functional code into guides without sanitizing credentials. These pose the exact same risk as secrets hardcoded in source files.
 **Prevention:** Regularly scan not just source code but also `.md`, `.qmd`, `.ipynb`, and other documentation formats for credential patterns (e.g., `hf_...`, `sk_...`). Always use explicit placeholders like `<YOUR_TOKEN_HERE>` or `hf_your_token_here_xxxxxxxxx` in tutorials instead of real or realistic-looking tokens.
+
+## 2025-05-20 - [Remove Dangerous eval() from Pedigree Parsing]
+**Vulnerability:** The code example in `posts/qmd/Rosalind_stronghold.qmd` previously parsed Newick-formatted pedigree strings by performing string replacements (turning parentheses into function calls) and passing the result to `eval()`. This executes arbitrary Python code and could allow remote code execution if evaluating untrusted inputs.
+**Learning:** Even when the input strings look like purely structural text (e.g. Newick format `(((Aa,aa)...`), transforming them into executable expressions and using `eval()` is incredibly dangerous and teaches poor security practices.
+**Prevention:** Always use safe serialization/deserialization methods like `ast.literal_eval`, `json.loads`, or a dedicated parsing library instead of `eval()` or `exec()`.
