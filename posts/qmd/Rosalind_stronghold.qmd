@@ -1465,8 +1465,10 @@ import requests
 import re
 
 def fetch_fasta(uniprot_id):
-    url = f"http://www.uniprot.org/uniprot/{uniprot_id}.fasta"
-    response = requests.get(url)
+    # Use HTTPS to encrypt data transmission
+    url = f"https://www.uniprot.org/uniprot/{uniprot_id}.fasta"
+    # Add timeout to prevent resource exhaustion and hanging
+    response = requests.get(url, timeout=10)
     response.raise_for_status()  # Ensure we notice bad responses
     fasta_data = response.text
     return ''.join(fasta_data.split('\n')[1:])  # Remove the first line and join the rest
