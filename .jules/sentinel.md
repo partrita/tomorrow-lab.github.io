@@ -12,3 +12,8 @@
 **Vulnerability:** The code example in `posts/qmd/Rosalind_stronghold.qmd` previously parsed Newick-formatted pedigree strings by performing string replacements (turning parentheses into function calls) and passing the result to `eval()`. This executes arbitrary Python code and could allow remote code execution if evaluating untrusted inputs.
 **Learning:** Even when the input strings look like purely structural text (e.g. Newick format `(((Aa,aa)...`), transforming them into executable expressions and using `eval()` is incredibly dangerous and teaches poor security practices.
 **Prevention:** Always use safe serialization/deserialization methods like `ast.literal_eval`, `json.loads`, or a dedicated parsing library instead of `eval()` or `exec()`.
+
+## 2025-05-24 - [Add Security Warning for Insecure Deserialization in Tutorials]
+**Vulnerability:** Found `pickle.load()` being used in an educational Jupyter notebook (`posts/ipynb/da_scanpy_workshop_07.ipynb`) to load external data. Pickle can execute arbitrary code during deserialization, posing a remote code execution risk.
+**Learning:** Sometimes, due to educational constraints (e.g., relying on external `.pkl` files hosted elsewhere that cannot be modified), it's impossible to completely remove the vulnerability without breaking the notebook. In such cases, documenting the risk prominently is the only recourse.
+**Prevention:** In production systems, avoid `pickle` entirely for untrusted data. Use safer serialization formats like JSON, CSV, or Parquet. In tutorials, always add explicit warnings if unsafe functions must be used due to external dependencies.
